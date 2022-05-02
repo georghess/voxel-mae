@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #SBATCH -A SNIC2022-5-184 -p alvis
-#SBATCH -t 1-04:00:00
+#SBATCH -t 16:00:00
 #SBATCH --gpus-per-node=A40:4
 #SBATCH -N 1
 #SBATCH --output=/mimer/NOBACKUP/groups/snic2021-7-127/eliassv/slurm-out/slurm-%j.out
