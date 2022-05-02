@@ -34,18 +34,17 @@ echo ""
 echo "Start copying repo to '$TMPDIR'"
 if [ $REPO_NUMBER == 1 ]
 then
-   echo "Taking SST_${GPU_TYPE}"
-   cp -r /cephyr/NOBACKUP/groups/snic2021-7-127/eliassv/SST_${GPU_TYPE}/ $TMPDIR/SST_${GPU_TYPE}
+   cp -r /mimer/NOBACKUP/groups/snic2021-7-127/eliassv/SST_${GPU_TYPE}/ $TMPDIR/SST_${GPU_TYPE}
 else
-   echo "Taking SST_${GPU_TYPE}_2"
-   cp -r /cephyr/NOBACKUP/groups/snic2021-7-127/eliassv/SST_${GPU_TYPE}_2/ $TMPDIR/SST_${GPU_TYPE}
+   cp -r /mimer/NOBACKUP/groups/snic2021-7-127/eliassv/SST_${GPU_TYPE}_2/ $TMPDIR/SST_${GPU_TYPE}
 fi
 echo ""
 echo "Copying of repo to tempdir is now done."
 echo ""
 
 echo ""
-echo "Linking data to tempdir."
+echo "Start copying nusenes info to '$TMPDIR/SST_$GPU_TYPE/'"
+unzip -q -d $TMPDIR/SST_$GPU_TYPE /mimer/NOBACKUP/groups/snic2021-7-127/eliassv/nuscenes_info/nuscenes_infos_v2.zip
 echo ""
 ln -s /mimer/NOBACKUP/groups/snic2021-7-127/eliassv/data/ $TMPDIR/SST_$GPU_TYPE/data
 echo ""
@@ -53,7 +52,7 @@ echo "Linking data to tempdir is now done."
 echo ""
 
 cd $TMPDIR/SST_$GPU_TYPE
-singularity exec --pwd $TMPDIR/SST_$GPU_TYPE --bind /mimer:/mimer \
+singularity exec --bind /mimer:/mimer --pwd $TMPDIR/SST_$GPU_TYPE \
   /cephyr/NOBACKUP/groups/snic2021-7-127/eliassv/sst_env/mmdetection3d_$GPU_TYPE.sif \
   bash tools/dist_train.sh configs/sst_refactor/$CONFIG.py $GPUS_PER_NODE \
   --work-dir /mimer/NOBACKUP/groups/snic2021-7-127/eliassv/jobs/$JOB_ID \
