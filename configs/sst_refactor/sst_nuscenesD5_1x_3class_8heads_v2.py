@@ -57,10 +57,10 @@ model = dict(
 
     backbone=dict(
         type='SSTv2',
-        d_model=[128,] * 1,
-        nhead=[1, ] * 1,
-        num_blocks=1,
-        dim_feedforward=[128, ] * 1,
+        d_model=[128,] * 6,
+        nhead=[8, ] * 6,
+        num_blocks=6,
+        dim_feedforward=[256, ] * 6,
         output_shape=[400, 400],
         num_attached_conv=3,
         conv_kwargs=[
@@ -82,13 +82,7 @@ evaluation = dict(interval=12)
 checkpoint_config = dict(interval=6)
 
 fp16 = dict(loss_scale=32.0)
-"""data = dict(
-    samples_per_gpu=1,
+data = dict(
+    samples_per_gpu=4,
     workers_per_gpu=4,
-    train=dict(
-        type='RepeatDataset',
-        times=1,
-        dataset=dict(
-            load_interval=5)
-    ),
-)"""
+)

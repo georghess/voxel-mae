@@ -1,12 +1,8 @@
 _base_ = [
-    '../_base_/datasets/nus-3d-2sweep.py',
-    '../_base_/schedules/cosine_2x.py',
-    '../_base_/default_runtime.py',
+    './sst_nuscenesD5_1x_3class_8heads_2v.py.py',
 ]
 
-voxel_size = (0.25, 0.25, 8)
 window_shape = (16, 16, 1) # 12 * 0.32m
-point_cloud_range = [-50, -50, -5, 50, 50, 3]
 drop_info_training ={
     0:{'max_tokens':30, 'drop_range':(0, 30)},
     1:{'max_tokens':60, 'drop_range':(30, 60)},
@@ -22,28 +18,12 @@ drop_info_test ={
     4:{'max_tokens':256, 'drop_range':(200, 100000)},
 }
 drop_info = (drop_info_training, drop_info_test)
-shifts_list = [(0, 0), (window_shape[0]//2, window_shape[1]//2)]
 
 model = dict(
     type='DynamicVoxelNet',
 
-    voxel_layer=dict(
-        voxel_size=voxel_size,
-        max_num_points=-1,
-        point_cloud_range=point_cloud_range,
-        max_voxels=(-1, -1)
-    ),
-
     voxel_encoder=dict(
         type='DynamicVFE',
-        in_channels=4,
-        feat_channels=[64, 128],
-        with_distance=False,
-        voxel_size=voxel_size,
-        with_cluster_center=True,
-        with_voxel_center=True,
-        point_cloud_range=point_cloud_range,
-        norm_cfg=dict(type='naiveSyncBN1d', eps=1e-3, momentum=0.01),
         return_gt_points=True
     ),
 
@@ -61,19 +41,13 @@ model = dict(
         masking_ratio=0.7
     ),
 
-    backbone = dict(
+    backbone=dict(
         type='SSTv2',
-        d_model=[128,] * 1,
-        nhead=[2, ] * 1,
-        num_blocks=1,
-        dim_feedforward=[256, ] * 1,
-        output_shape=[400, 400],
-        num_attached_conv=0,
-        debug=True,
         masked=True
     ),
 
     neck=dict(
+        _delete_=True,
         type='SSTv2Decoder',
         d_model=[128,] * 6,
         nhead=[8, ] * 6,
@@ -84,6 +58,7 @@ model = dict(
     ),
 
     bbox_head=dict(
+        _delete_=True,
         type='ReconstructionHead',
         in_channels=128,
         feat_channels=128,
