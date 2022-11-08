@@ -32,6 +32,8 @@ Configs for fine-tuning can be found in `./configs/sst_refactor`. We use `sst_2s
 
 Similar to pre-training configs, we provide versions for different dataset sizes, e.g. `1fiths`, `1twentieth` and `1hundreth` use 20%, 5% and 1% of the available data.
 
+## How to use Docker
+
 ## Acknowledgments
 This project is based on the following codebases.  
 
