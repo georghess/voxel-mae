@@ -1,7 +1,7 @@
 # Voxel-MAE - Masked Autoencoders for Self-Supervised Learning on Automotive Point Clouds
 This is the official implementation of the WACV 2023 PVL workshop paper [Masked Autoencoders for Self-Supervised Learning on Automotive Point Clouds](https://arxiv.org/abs/2207.00531).
 
-[![WACV 2023 presentation](https://img.youtube.com/watch?v=EVKC69zIplw/0.jpg)](https://www.youtube.com/watch?v=EVKC69zIplw)
+[![WACV 2023 presentation](https://img.youtube.com/vi/EVKC69zIplw/0.jpg)](https://www.youtube.com/watch?v=EVKC69zIplw)
 
 ## Usage
 ### Environment
