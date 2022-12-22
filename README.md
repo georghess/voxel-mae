@@ -30,6 +30,16 @@ Configs for fine-tuning can be found in `./configs/sst_refactor`. We use `sst_2s
 
 Similar to pre-training configs, we provide versions for different dataset sizes, e.g. `1fiths`, `1twentieth` and `1hundreth` use 20%, 5% and 1% of the available data.
 
+## How to use Docker
+We provide a Dockerfile to build an image.
+
+```bash 
+# build an image with PyTorch 1.9, CUDA 10.2
+cd docker
+bash build.sh
+bash run.sh ENTER_YOUR_VOLUME_PASS
+```
+
 ## Acknowledgments
 This project is based on the following codebases.  
 
