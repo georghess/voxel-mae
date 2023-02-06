@@ -12,7 +12,10 @@ ENV CMAKE_PREFIX_PATH="$(dirname $(which conda))/../"
 ENV CUDA_HOME=/usr/local/cuda
 ENV SHELL=/bin/bash
 
-# To fix GPG key error when running apt-get update
+# To fix GPG key error when running apt-get update (https://github.com/NVIDIA/nvidia-docker/issues/1631)
+RUN rm /etc/apt/sources.list.d/cuda.list
+RUN rm /etc/apt/sources.list.d/nvidia-ml.list
+RUN apt-key del 7fa2af80
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/7fa2af80.pub
 
@@ -51,9 +54,3 @@ RUN pip install numba==0.48
 RUN conda install cython
 RUN pip uninstall pycocotools --no-cache-dir -y
 RUN pip install mmpycocotools --no-cache-dir --force --no-deps
-
-RUN pip install jupyterlab
-RUN pip install -r jupyterlab.txt
-
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
-EXPOSE 8888
